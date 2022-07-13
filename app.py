@@ -1,16 +1,24 @@
-from flask import Flask, render_template, request, jsonify
+from pymongo import MongoClient
+import jwt
+import datetime
+import hashlib
+import certifi
+from flask import Flask, render_template, jsonify, request, redirect, url_for
+from werkzeug.utils import secure_filename
+from datetime import datetime, timedelta
+
 
 app = Flask(__name__)
+app.config["TEMPLATES_AUTO_RELOAD"] = True
+app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 
-import requests
-from bs4 import BeautifulSoup
+SECRET_KEY = 'SPARTA'
 
-from pymongo import MongoClient
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.0qvo6.mongodb.net/?retryWrites=true&w=majority')
-db = client.miniprj
+ca = certifi.where()
+client = MongoClient('mongodb+srv://test:sparta@cluster0.l0pgj.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=ca)
+db = client.dbsparta
 
-<<<<<<< HEAD
 # first page 진입
 @app.route('/')
 def intro():
@@ -227,68 +235,22 @@ def posting():
 # posting 데이터 저장
 @app.route("/posting", methods=["POST"])
 def web_mars_post():
-=======
-
-@app.route('/posting')
-def home():
-    words = list(db.mini.find({}, {"_id": False}))
-    return render_template('posting.html', words=words)
-
-
-# def main():
-#     # DB에서 저장된 단어 찾아서 HTML에 나타내기
-#     words = list(db.words.find({}, {"_id": False}))
-#     return render_template("main.html", words=words)
-@app.route('/main')
-def main():
-    words = list(db.mini.find({}, {"_id": False}))
-    return render_template("main.html", words=words)
-
-
-@app.route("/mini", methods=["POST"])
-def mini_post():
->>>>>>> 0319be453bc16e72c05a28b34dbe0eb0334943be
     gu_receive = request.form['gu_give']
     dong_receive = request.form['dong_give']
-    chung_receive = request.form['chung_give']
-    ann_receive = request.form['ann_give']
-    gyo_receive = request.form['gyo_give']
-    pyun_receive = request.form['pyun_give']
+    clean_receive = request.form['clean_give']
+    safe_receive = request.form['safe_give']
+    trans_receive = request.form['trans_give']
+    store_receive = request.form['store_give']
 
     doc = {
         'gu': gu_receive,
         'dong': dong_receive,
-        'chung': chung_receive,
-        'ann': ann_receive,
-        'gyo': gyo_receive,
-        'pyun': pyun_receive,
+        'clean': clean_receive,
+        'safe': safe_receive,
+        'trans': trans_receive,
+        'store': store_receive,
     }
-    db.mini.insert_one(doc)
 
-    return jsonify({'msg': '저장 완료!'})
-
-@app.route("/check", methods=["POST"])
-def check_post():
-    id_receive = request.form['id_give']
-    user = db.users.find_one({'id': id_receive})
-    if user is not None:
-        return jsonify({'msg': 0})
-    else:
-        return jsonify({'msg': 1})
-
-
-@app.route("/boxcheck", methods=["POST"])
-def boxcheck():
-    checkval_receive = request.form['check_val']
-    result = list(db.mini.find({'gu': {"$regex": checkval_receive}}, {'_id': False}))
-    if checkval_receive == "all":
-        mini_list = list(db.mini.find({}, {'_id': False}))
-        return jsonify({'msg': mini_list})
-    else:
-        return jsonify({'msg': result})
-
-
-<<<<<<< HEAD
     db.database.insert_one(doc)
 
     return jsonify({'msg': '입력 완료!'})
@@ -381,12 +343,6 @@ def save_img():
 #         return jsonify({"result": "success", 'msg': 'updated'})
 #     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
 #         return redirect(url_for("home"))
-=======
-@app.route("/mini", methods=["GET"])
-def mini_get():
-    mini_list = list(db.mini.find({}, {'_id': False}))
-    return jsonify({'mini': mini_list})
->>>>>>> 0319be453bc16e72c05a28b34dbe0eb0334943be
 
 
 if __name__ == '__main__':
