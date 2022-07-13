@@ -1,212 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<title>동네어때</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-
-
-<style>
-    * {
-        font-family: 'Gowun Dodum', sans-serif;
-    }
-
-    .title {
-        width: 100%;
-        height: 250px;
-        font-size: 45px;
-
-        background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('https://cis.seoul.go.kr/TotalAlimi_new/SearchMap.action?cmd=searchmap');
-        background-position: center;
-        background-size: cover;
-
-        color: white;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .title > button {
-        width: 200px;
-        height: 40px;
-        font-size: 15px;
-
-        background-color: transparent;
-
-        color: whitesmoke;
-
-        border-radius: 50px;
-        border: 1px solid white;
-
-        margin-top: 15px;
-    }
-
-    .mytitle > button:hover {
-        border: 2px solid white;
-    }
-
-    .check-box {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .mybtns {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-
-        margin-top: 20px;
-    }
-
-    .mybtns > button {
-        margin-right: 10px;
-    }
-
-    .mycards {
-        margin: 20px auto 0px auto;
-        width: 95%;
-        max-width: 1200px;
-    }
-
-    .col {
-        transition: all 0.6s;
-    }
-
-    .col:hover {
-        box-shadow: 3px 3px 3px black;
-    }
-</style>
-<script>
-    $(document).ready(function () {
-        listing();
-    });
-
-    function checking(event) {
-        let check_val = event.target.value
-        if (event.target.checked) {
-            $("#cards-box").empty()
-            $.ajax({
-                type: "POST",
-                url: "/boxcheck",
-                data: {check_val: check_val},
-                success: (response) => {
-                    let rows = response["msg"]
-                    for (let i = 0; i < rows.length; i++) {
-                        let gu = rows[i]['gu']
-                        let dong = rows[i]['dong']
-                        let star = rows[i]['chung']
-                        let star1 = rows[i]['ann']
-                        let star2 = rows[i]['gyo']
-                        let star3 = rows[i]['pyun']
-
-                        let star_image = '⭐'.repeat(star)
-                        let star1_image = '⭐'.repeat(star1)
-                        let star2_image = '⭐'.repeat(star2)
-                        let star3_image = '⭐'.repeat(star3)
-
-
-                        let temp_html = `<div class="col">
-                                             <div class="card h-100">
-                                                <div class="card-body">
-                                                <p>${gu}</p>
-                                                <p>${dong}</p>
-                                                    <p>청결점수:${star_image}</p>
-                                                    <p>안전점수:${star1_image}</p>
-                                                    <p>교통점수:${star2_image}</p>
-                                                    <p>편리점수:${star3_image}</p>
-                                                </div>
-                                            </div>
-                                         </div>`
-                        $('#cards-box').append(temp_html)
-                    }
-                },
-            })
-        } else {
-            $("input:radio[name='check']").prop('checked', false)
-            $('#cards-box').empty()
-            listing()
-        }
-    }
-
-    function listing() {
-        $('#cards-box').empty()
-        $.ajax({
-            type: 'GET',
-            url: '/mini',
-            data: {},
-            success: function (response) {
-                let rows = response['mini']
-                for (let i = 0; i < rows.length; i++) {
-                    let gu = rows[i]['gu']
-                    let dong = rows[i]['dong']
-                    let star = rows[i]['chung']
-                    let star1 = rows[i]['ann']
-                    let star2 = rows[i]['gyo']
-                    let star3 = rows[i]['pyun']
-
-                    let star_image = '⭐'.repeat(star)
-                    let star1_image = '⭐'.repeat(star1)
-                    let star2_image = '⭐'.repeat(star2)
-                    let star3_image = '⭐'.repeat(star3)
-
-
-                    let temp_html = `<div class="col">
-                                             <div class="card h-100">
-                                                <div class="card-body">
-                                                <p>${gu}</p>
-                                                <p>${dong}</p>
-                                                    <p>청결점수:${star_image}</p>
-                                                    <p>안전점수:${star1_image}</p>
-                                                    <p>교통점수:${star2_image}</p>
-                                                    <p>편리점수:${star3_image}</p>
-                                                </div>
-                                            </div>
-                                         </div>`
-                    $('#cards-box').append(temp_html)
-
-                }
-            }
-        })
-    }
-
-    function open_box() {
-        window.location.href = "/posting"
-    }
-
-    $(document).ready(function () {
-        get_posts()
-    })
-
-    function sign_out() {
-        $.removeCookie('mytoken', {path: '/'});
-        alert('로그아웃!')
-        window.location.href = "/login"
-    }
-
-    function go_posting() {
-        window.location.href = "/posting";
-    }
-</script>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -222,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
     <style>
         * {
@@ -391,10 +183,17 @@
             })
         }
 
-        function open_box() {
+        function go_posting() {
             window.location.href = "/posting"
         }
-
+        function go_user() {
+            window.location.href = "/user"
+        }
+        function sign_out() {
+            $.removeCookie('mytoken', {path: '/'});
+            alert('로그아웃!')
+            window.location.href = "/login"
+        }
     </script>
 </head>
 
@@ -412,9 +211,15 @@
         <div class="b">
             <button onclick="sign_out()">로그아웃</button>
             <button onclick="go_posting()">동네정보입력</button>
-
+            <button onclick="go_user()">마이페이지</button>
         </div>
     </nav>
+    <div class="banner_set">
+    <div class="banner" onclick="window.location.href='/'"></div>
+    <span class="nickname_banner">
+            <span class="nickname">{{ user_info.nickname }}</span>님,
+                    안녕하세요.</span>
+</div>
 </header>
 
 

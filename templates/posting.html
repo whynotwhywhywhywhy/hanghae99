@@ -96,54 +96,6 @@
             listing();
         });
 
-        function listing() {
-            $('#cards-box').empty()
-            $.ajax({
-                type: 'GET',
-                url: '/mini',
-                data: {},
-                success: function (response) {
-                    console.log(response['mini'])
-                    let rows = response['mini']
-                    for (let i = 0; i < rows.length; i++) {
-                        let gu = rows[i]['gu']
-                        let dong = rows[i]['dong']
-                        // let chung = rows[i]['chung']
-                        // let ann = rows[i]['ann']
-                        // let gyo = rows[i]['gyo']
-                        // let pyun = rows[i]['pyun']
-
-
-                        let star = rows[i]['chung']
-                        let star1 = rows[i]['ann']
-                        let star2 = rows[i]['gyo']
-                        let star3 = rows[i]['pyun']
-
-                        let star_image = '⭐'.repeat(star)
-                        let star1_image = '⭐'.repeat(star1)
-                        let star2_image = '⭐'.repeat(star2)
-                        let star3_image = '⭐'.repeat(star3)
-
-
-                        let temp_html = `<div class="col">
-                                             <div class="card h-100">
-                                                <div class="card-body">
-                                                <p>${gu}</p>
-                                                <p>${dong}</p>
-                                                    <p>청결점수:${star_image}</p>
-                                                    <p>안전점수:${star1_image}</p>
-                                                    <p>교통점수:${star2_image}</p>
-                                                    <p>편리점수:${star3_image}</p>
-                                                </div>
-                                            </div>
-                                         </div>`
-                        $('#cards-box').append(temp_html)
-
-                    }
-                }
-            })
-        }
-
         function posting() {
             let gu = $('#gu').val()
             let dong = $('#dong').val()
