@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Webpage Title -->
+    <title>동네어때</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bulma CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <!-- background-video -->
+    <script src="//code.jquery.com/jquery-latest.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.mb.YTPlayer/3.3.9/css/jquery.mb.YTPlayer.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mb.YTPlayer/3.3.4/jquery.mb.YTPlayer.min.js"></script>
+
+    <!-- Font Awesome CSS -->
+    <script src="https://kit.fontawesome.com/8f4978e361.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Dongle:wght@300&display=swap"
+          rel="stylesheet">
+
+    <style>
+        :root {
+            /* Color */
+            --color-white: #ffffff;
+            --color-light-white: #eeeeee;
+            --color-dark-white: #bdbdbd;
+            --color-pink: #fe918d;
+            --color-dark-pink: #ff6863;
+            --color-dark-grey: #4d4d4d;
+            --color-grey: #616161;
+            --color-light-grey: #7c7979;
+            --color-light-sky: #2ECCFA;
+            --color-sky: #00BFFF;
+
+            --color-yellow: #fff7d1;
+            --color-orange: #feb546;
+            --color-black: #000000;
+
+            /* Font size */
+            --font-large: 48px;
+            --font-medium: 35px;
+            --font-regular: 18px;
+            --font-small: 16px;
+            --font-micro: 14px;
+
+            /* Font weight */
+            --weight-bold: 700;
+            --weight-semi-bold: 600;
+            --weight-regular: 400;
+
+            /* size */
+            --size-border-radius: 4px;
+
+            /* animation */
+            --animation-duration: 300ms;
+        }
+        .main_text {
+            top: 40%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+        }
+        .main_text h1 {
+            font-size: 80px;
+            color: #ffffff;
+            font-family: 'Black Han Sans', sans-serif;
+            margin: 0px;
+            z-index: 1;
+        }
+        .main_text h3 {
+            font-size: 40px;
+            color: var(--color-light-sky);
+            font-family: 'Black Han Sans', sans-serif;
+            margin: 0px;
+            z-index: 1;
+        }
+        .background-cover{
+            margin: 0 auto;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0.5;
+        }
+        button {
+            letter-spacing: 20px;
+            font-size: 30px;
+            color: var(--color-white);
+
+            width: 270px;
+            height: 50px;
+
+            background-color: transparent;
+            text-align: center;
+
+            border-radius: 50px;
+            border: 4px solid var(--color-light-sky);
+            font-family: 'Black Han Sans', sans-serif;
+            z-index: 1;
+        }
+        .player {
+            background-color: rgba(0, 0, 0, 100); /*살짝 투명한 검정으로 배경색*/
+            width: 100%;
+            height: 550px;
+            position: absolute; /*다른 요소들 위로 겹쳐질 수 있게함*/
+            top: 60px;
+
+        }
+
+    </style>
+
+    <script>
+        <!--Youtube 영상 플레이어-->
+        jQuery(function () {
+            jQuery('#background').YTPlayer();
+        });
+
+        //main 이동
+        function gomain() {
+            location.href = "/main"
+        }
+
+    </script>
+
+</head>
+
+<body>
+<header>
+</header>
+<!--배경 영상 및 옵션-->
+<div id="background" class="player" data-property="{
+  videoURL: 'https://youtu.be/FaU8BkqmXzo',
+  mute: true,
+  showControls: false,
+  useOnMobile: true,
+  quality: 'highres',
+  containment: 'body',
+  loop: true,
+  autoPlay: true,
+  stopMovieOnBlur: false,
+  startAt: 0,
+  stopAt: 10,
+  opacity: 1}">
+</div>
+
+<!--인트로 문구-->
+
+<div class="main_text">
+    <h1>동 네 어 때</h1>
+    <h3>서울 동네정보의 모든것</h3>
+    <button onclick="gomain()">시작</button>
+</div>
+<div class="background-cover"></div>
+
+</body>
+</html>
